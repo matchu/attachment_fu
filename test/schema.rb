@@ -9,11 +9,12 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column :width,           :integer
     t.column :height,          :integer
     t.column :aspect_ratio,    :float
+    t.column :info,            :string, :limit => 255
   end
 
   create_table :file_attachments, :force => true do |t|
     t.column :parent_id,       :integer
-    t.column :thumbnail,       :string 
+    t.column :thumbnail,       :string
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
     t.column :size,            :integer
@@ -21,12 +22,13 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column :height,          :integer
     t.column :type,            :string
     t.column :aspect_ratio,    :float
+    t.column :info,            :string, :limit => 255
   end
-  
+
   create_table :file_attachments_with_string_id, :id => false, :force => true do |t|
     t.column :id,              :string
     t.column :parent_id,       :string
-    t.column :thumbnail,       :string 
+    t.column :thumbnail,       :string
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
     t.column :size,            :integer
@@ -34,61 +36,67 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column :height,          :integer
     t.column :type,            :string
     t.column :aspect_ratio,    :float
+    t.column :info,            :string, :limit => 255
   end
 
   create_table :gd2_attachments, :force => true do |t|
     t.column :parent_id,       :integer
-    t.column :thumbnail,       :string 
+    t.column :thumbnail,       :string
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
     t.column :size,            :integer
     t.column :width,           :integer
     t.column :height,          :integer
     t.column :type,            :string
+    t.column :info,            :string, :limit => 255
   end
 
   create_table :image_science_attachments, :force => true do |t|
     t.column :parent_id,       :integer
-    t.column :thumbnail,       :string 
+    t.column :thumbnail,       :string
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
     t.column :size,            :integer
     t.column :width,           :integer
     t.column :height,          :integer
     t.column :type,            :string
+    t.column :info,            :string, :limit => 255
   end
 
   create_table :core_image_attachments, :force => true do |t|
     t.column :parent_id,       :integer
-    t.column :thumbnail,       :string 
+    t.column :thumbnail,       :string
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
     t.column :size,            :integer
     t.column :width,           :integer
     t.column :height,          :integer
     t.column :type,            :string
-  end
-  
-  create_table :mini_magick_attachments, :force => true do |t|
-    t.column :parent_id,       :integer
-    t.column :thumbnail,       :string 
-    t.column :filename,        :string, :limit => 255
-    t.column :content_type,    :string, :limit => 255
-    t.column :size,            :integer
-    t.column :width,           :integer
-    t.column :height,          :integer
-    t.column :type,            :string
+    t.column :info,            :string, :limit => 255
   end
 
   create_table :mini_magick_attachments, :force => true do |t|
     t.column :parent_id,       :integer
-    t.column :thumbnail,       :string 
+    t.column :thumbnail,       :string
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
     t.column :size,            :integer
     t.column :width,           :integer
     t.column :height,          :integer
     t.column :type,            :string
+    t.column :info,            :string, :limit => 255
+  end
+
+  create_table :mini_magick_attachments, :force => true do |t|
+    t.column :parent_id,       :integer
+    t.column :thumbnail,       :string
+    t.column :filename,        :string, :limit => 255
+    t.column :content_type,    :string, :limit => 255
+    t.column :size,            :integer
+    t.column :width,           :integer
+    t.column :height,          :integer
+    t.column :type,            :string
+    t.column :info,            :string, :limit => 255
   end
 
   create_table :orphan_attachments, :force => true do |t|
@@ -96,11 +104,13 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
     t.column :size,            :integer
+    t.column :info,            :string, :limit => 255
   end
-  
+
   create_table :minimal_attachments, :force => true do |t|
     t.column :size,            :integer
     t.column :content_type,    :string, :limit => 255
+    t.column :info,            :string, :limit => 255
   end
 
   create_table :db_files, :force => true do |t|
@@ -109,7 +119,7 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table :s3_attachments, :force => true do |t|
     t.column :parent_id,       :integer
-    t.column :thumbnail,       :string 
+    t.column :thumbnail,       :string
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
     t.column :size,            :integer
@@ -117,11 +127,12 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column :height,          :integer
     t.column :type,            :string
     t.column :aspect_ratio,    :float
+    t.column :info,            :string, :limit => 255
   end
-  
+
   create_table :cloud_files_attachments, :force => true do |t|
     t.column :parent_id,       :integer
-    t.column :thumbnail,       :string 
+    t.column :thumbnail,       :string
     t.column :filename,        :string, :limit => 255
     t.column :content_type,    :string, :limit => 255
     t.column :size,            :integer
@@ -129,6 +140,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.column :height,          :integer
     t.column :type,            :string
     t.column :aspect_ratio,    :float
+    t.column :info,            :string, :limit => 255
   end
-  
+
 end

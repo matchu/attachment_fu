@@ -96,7 +96,7 @@ module Technoweenie # :nodoc:
         # doing these shenanigans so that #attachment_options is available to processors and backends
         self.attachment_options = options
 
-        attr_accessor :thumbnail_resize_options, :explicit_update
+        attr_accessor :thumbnail_resize_options
 
         attachment_options[:storage]     ||= (attachment_options[:file_system_path] || attachment_options[:path_prefix]) ? :file_system : :db_file
         attachment_options[:storage]     ||= parent_options[:storage]
@@ -317,7 +317,7 @@ module Technoweenie # :nodoc:
 
       # Returns true if the attachment data will be written to the storage system on the next save
       def save_attachment?
-        (new_record? or no_file_exists or explicit_update or parent_id.nil?) and File.file?(temp_path.to_s)
+        (no_file_exists || @explicit_update || (defined?(parent_id) and !parent_id.nil?)) && File.file?(temp_path.to_s)
       end
 
       # nil placeholder in case this field is used in a form.
@@ -351,7 +351,7 @@ module Technoweenie # :nodoc:
         else
           self.temp_paths.unshift file_data
         end
-        explicit_update = true
+        @explicit_update = true
       end
 
       # Gets the latest temp path from the collection of temp paths.  While working with an attachment,
@@ -365,12 +365,12 @@ module Technoweenie # :nodoc:
 
       # Gets an array of the currently used temp paths.  Defaults to a copy of #full_filename.
       def temp_paths
-        @temp_paths ||= (new_record? || no_file_exists ?
+        @temp_paths ||= (no_file_exists ?
           [] : [copy_to_temp_file(full_filename)])
       end
 
       def no_file_exists
-        !respond_to?(:full_filename) || !File.exist?(full_filename)
+        new_record? || !respond_to?(:full_filename) || !File.exist?(full_filename)
       end
 
       # Gets the data from the latest temp file.  This will read the file into memory.
@@ -381,6 +381,7 @@ module Technoweenie # :nodoc:
       # Writes the given data to a Tempfile and adds it to the collection of temp files.
       def set_temp_data(data)
         temp_paths.unshift write_to_temp_file data unless data.nil?
+        @explicit_update = true
       end
 
       # Copies the given file to a randomly named Tempfile.

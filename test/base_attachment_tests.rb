@@ -74,4 +74,10 @@ module BaseAttachmentTests
       attachment.save!
     end
   end
+
+  def test_should_not_save_attachment_without_new_data
+    attachment = upload_file :filename => '/files/rails.png'
+    attachment.info = 'lol'
+    assert !attachment.save_attachment?
+  end
 end
